@@ -1,5 +1,6 @@
 package StackArray;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -8,8 +9,32 @@ import java.util.Arrays;
  * @param <E>
  */
 public class GenericStack<E> {
-    private E[] elements;
 
-    public GenericStack() {
+    private E[] elements ;
+
+    public boolean isEmpty() {
+        return elements == null ? true : false;
     }
+
+    public void push(E foobar) {
+        if( !isEmpty() ) {
+            elements = Arrays.copyOf(elements,elements.length + 1);
+            elements[elements.length - 1] = foobar;
+        } else {
+            elements = (E[]) Array.newInstance(String.class, 1);
+            elements[0] = foobar;
+        }
+    }
+
+    public E pop() {
+        if( !isEmpty() ){
+            E topPop = elements[elements.length - 1];
+            elements = Arrays.copyOf(elements, elements.length - 1);
+            return topPop;
+        }
+        else {
+            throw new IndexOutOfBoundsException("Stack is empty");
+        }
+    }
+
 }
